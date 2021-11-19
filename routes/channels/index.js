@@ -25,12 +25,10 @@ router.route("/add/channel/comment").post(async (req, res) => {
 
     newComment.save((err, doc) => {
       if (!err) {
-        ChannelSchema.findById(req.body.channelId).then((result) => {
-          const data = result.comments;
-          data.push(doc._id);
-
-          result.comments = data;
-          result.save((err, doc) => {
+        ChannelSchema.findByIdAndUpdate(
+          { _id: req.body.channelId },
+          { $push: { comments: doc._id } },
+          (err) => {
             if (!err) {
               res.json({
                 success: true,
@@ -43,8 +41,8 @@ router.route("/add/channel/comment").post(async (req, res) => {
                 err,
               });
             }
-          });
-        });
+          }
+        );
       } else {
         throw new Error("err");
       }
