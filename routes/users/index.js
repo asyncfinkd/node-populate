@@ -25,11 +25,15 @@ router.route("/add/user").post(async (req, res) => {
   try {
     const newUser = new UserSchema(req.body);
 
-    await newUser.save().then(() => {
-      res.json({
-        success: true,
-        msg: "Congratulation, User is added successfuly.!",
-      });
+    await newUser.save((err) => {
+      if (!err) {
+        res.json({
+          success: true,
+          msg: "Congratulation, User is added successfuly.!",
+        });
+      } else {
+        res.json({ success: false, msg: "Sorry, Something is wrong." });
+      }
     });
   } catch (err) {
     res.json({ success: false, err, msg: "Sorry, Something is wrong." });
