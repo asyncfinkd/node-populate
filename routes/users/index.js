@@ -1,11 +1,18 @@
 const router = require("express").Router();
 const UserSchema = require("../../models/users/index.model");
-const ChannelSchema = require("../../models/channels/index.model");
 
 router.route("/get/users").get(async (req, res) => {
   try {
     await UserSchema.find()
-      .populate("followedChannel")
+      .populate({
+        path: "followedChannel",
+        populate: {
+          path: "comments",
+          populate: {
+            path: "author",
+          },
+        },
+      })
       .then((result) => {
         res.json({ success: true, item: result });
       });
@@ -48,17 +55,6 @@ router.route("/follow/channel").post(async (req, res) => {
           res.json({ success: false, msg: "Sorry, Something is wrong." });
         }
       });
-
-      // addToFollow.save((err, doc) => {
-      //   if (!err) {
-      //     res.json({
-      //       success: true,
-      //       msg: "Congratulation, You Followed Company",
-      //     });
-      //   } else {
-      //     res.json({ success: false, msg: "Sorry, Something is wrong." });
-      //   }
-      // });
     });
   } catch (err) {
     res.status(502).json(err);
