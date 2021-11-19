@@ -13,9 +13,7 @@ router.route("/get/users").get(async (req, res) => {
           },
         },
       })
-      .then((result) => {
-        res.json({ success: true, item: result });
-      });
+      .then((result) => res.json({ success: true, item: result }));
   } catch (err) {
     res.json({ success: false, msg: "Sorry, Something is wrong.", err });
   }
@@ -31,9 +29,7 @@ router.route("/add/user").post(async (req, res) => {
           success: true,
           msg: "Congratulation, User is added successfuly.!",
         });
-      } else {
-        res.json({ success: false, msg: "Sorry, Something is wrong." });
-      }
+      } else res.json({ success: false, msg: "Sorry, Something is wrong." });
     });
   } catch (err) {
     res.json({ success: false, err, msg: "Sorry, Something is wrong." });
@@ -53,9 +49,7 @@ router.route("/follow/channel").post(async (req, res) => {
             success: true,
             msg: "Congratulation, You Followed Company",
           });
-        } else {
-          res.json({ success: false, msg: "Sorry, Something is wrong." });
-        }
+        } else res.json({ success: false, msg: "Sorry, Something is wrong." });
       }
     );
   } catch (err) {
