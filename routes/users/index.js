@@ -7,10 +7,10 @@ router.route("/get/users").get(async (req, res) => {
     await UserSchema.find()
       .populate("followedChannel")
       .then((result) => {
-        res.json(result);
+        res.json({ success: true, item: result });
       });
   } catch (err) {
-    res.json(err);
+    res.json({ success: false, msg: "Sorry, Something is wrong.", err });
   }
 });
 
@@ -25,7 +25,7 @@ router.route("/add/user").post(async (req, res) => {
       });
     });
   } catch (err) {
-    res.json({ success: false, err, msg: "Sorry, Soemthing is wrong." });
+    res.json({ success: false, err, msg: "Sorry, Something is wrong." });
   }
 });
 
