@@ -7,7 +7,7 @@ router.route("/add/channel").post(async (req, res) => {
   try {
     const newChannel = await new ChannelSchema(req.body);
 
-    await newChannel.save((err, doc) => {
+    await newChannel.save((err) => {
       if (!err) {
         res.json({ success: true, msg: "Congratulation, Channel is Added!" });
       } else {
