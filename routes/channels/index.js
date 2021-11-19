@@ -7,9 +7,9 @@ router.route("/add/channel").post(async (req, res) => {
 
     await newChannel.save((err, doc) => {
       if (!err) {
-        res.json({ success: true, msg: "არხი წარმატებით დაემატა!" });
+        res.json({ success: true, msg: "Congratulation, Channel is Added!" });
       } else {
-        res.json({ success: true, msg: "დაფიქსირდა შეცდომა" });
+        res.json({ success: true, msg: "Sorry, Something is wrong." });
       }
     });
   } catch (err) {

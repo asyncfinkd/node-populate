@@ -9,10 +9,13 @@ router.route("/add/user").post(async (req, res) => {
     const newUser = new UserSchema(req.body);
 
     newUser.save().then(() => {
-      res.json({ success: true, msg: "წარმატებით დაემატა მომხმარებელი!" });
+      res.json({
+        success: true,
+        msg: "Congratulation, User is added successfuly.!",
+      });
     });
   } catch (err) {
-    res.json(err);
+    res.json({ success: false, err, msg: "Sorry, Soemthing is wrong." });
   }
 });
 
@@ -25,7 +28,7 @@ router.route("/follow/channel").post(async (req, res) => {
         if (!err) {
           res.json({ success: true, msg: "" });
         } else {
-          res.json({ success: true, msg: "დაფიქსირდა შეცდომა!" });
+          res.json({ success: false, msg: "Sorry, Something is wrong." });
         }
       });
     });
